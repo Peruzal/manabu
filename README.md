@@ -56,4 +56,4 @@ For:
 
 ##### Connecting to AWS 
 
-1. [see here] (/docs/setup_aws.md) 
+1. [see here](/docs/setup_aws.md) 

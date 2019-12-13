@@ -1,0 +1,46 @@
+extends layout
+
+block content
+  #presentation-margin
+    h1 #{lessonTitle}
+    .alert.alert-warning.alert-dismissible.fade.show(role='alert')
+      | To see how you can use revealjs you can go to this 
+      a(href="https://github.com/hakimel/reveal.js" target="_blank") help guide
+      button.close(type='button', data-dismiss='alert', aria-label='Close')
+        span(aria-hidden='true') × 
+    form
+      div#presentation(
+        data-controller='markdown-edit',
+        data-presentationTitle=lessonTitle,
+        data-presentationTheme=presentationTheme,
+        data-presentationTransition=presentationTransition,
+        data-courseId = courseId 
+        )
+        textarea#markdown-form(
+          name='testmarkdown'
+          data-action='click->markdown-edit#autoSave'
+          ) #{slidedata}
+        a.btn.btn-outline-dark.text-uppercase(
+          href=`/reveal/${lessonTitle}/preview`
+          target="_blank"
+          data-action='click->markdown-edit#preview'
+          ) preview    
+        .float-right
+            .row
+                .col
+                  button.btn.btn-outline-dark.text-uppercase(
+                    type='button'
+                    data-action='click->markdown-edit#save click->markdown-edit#refreshPresentation'
+                  ) save
+                if urllocation == "index"
+                  .col                  
+                    button.btn.btn-dark.text-uppercase(
+                      type='button'
+                      data-action='click->markdown-edit#saveAndExit click->markdown-edit#refreshPresentation'
+                    ) save and exit    
+                else
+                  .col                   
+                  button.btn.btn-dark.text-uppercase(
+                    type='button'
+                    data-action='click->markdown-edit#saveAndExitAdmin click->markdown-edit#refreshPresentation'
+                  ) save and exit                   

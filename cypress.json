@@ -1,0 +1,16 @@
+{
+    "baseUrl": "http://localhost:3005/home",
+    "screenshotsFolder": "cypress/snapshots/actual",
+    "trashAssetsBeforeRuns": true,
+    "video": false,
+    "chromeWebSecurity": false,
+    "requestTimeout": 10000,
+    "defaultCommandTimeout": 10000,
+    "reporter": "junit",
+    "reporterOptions": {
+      "mochaFile": "results/cypress-report.xml",
+      "toConsole": true
+    },
+    "viewportWidth": 1280,
+    "viewportHeight": 720
+  }

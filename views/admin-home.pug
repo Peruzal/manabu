@@ -1,0 +1,74 @@
+extends layout
+
+block content
+  title
+    | Manabu Admin
+  #adminHomePage(
+    data-controller = 'lessonlistitem courseedit lessonEditController changeCourseIconController course-statistics-controller'
+  )
+    #welcome-message-wrapper
+      .greetingMessage
+        | Welcome 
+        span#personBeingGreeted
+          | #{user.name}
+        |. What would you like to do today?   
+    #ManageCourseWrapper(
+      data-controller = 'adminNavButtonsController'
+    )
+      .row#alignManageCourseNav
+        .manageCourseNav#selectedManageCourseButton(
+          data-orderNumber = 0
+        )
+            .icon-wrapper
+              .writing-pencil-icon
+            .manageCourseNavTitle
+              | Manage my courses (#{coursesAuthoredByUser.length})  
+        .manageCourseNav(
+          data-orderNumber = 1
+        )
+            .icon-wrapper
+              .create-course-content-icon
+            .manageCourseNavTitle
+              | Create new course content         
+        .manageCourseNav.space-between-nav-bars(
+          data-orderNumber = 2
+        )
+            .icon-wrapper
+              .course-analysis
+            .manageCourseNavTitle
+              | Course analysis
+      #manageMyCoursesPage
+        .row#addCourseAndArchiveSection
+          #addNewCourseWrapper(
+            data-toggle="modal"
+            data-target="#admin-add-course-modal"
+          )
+            .more-options-icon
+            #addNewCourseTitle
+              | Add a new course...
+          #archive
+            .send-course-to-archive-icon
+            .archive-text
+              | Archive (#{archivedCoursesByUser.length})
+        #coursesAuthoredByUserWrapper
+          include courses-authored-by-user.pug
+        #archivedCoursesByUser
+          include archived-courses-by-user.pug
+      #createNewCourseContentPage
+          include presentation-authored-by-user.pug          
+      #courseAnalysisPage
+        include admin-course-analysis.pug
+    include admin-sidebar.pug
+    include admin-upload-modal.pug
+    include admin-preview-content-modal.pug
+    include admin-download-modal.pug
+    include admin-add-contributor-modal.pug
+    include admin-create-quiz-modal.pug
+    include admin-add-tag-modal.pug
+    include admin-add-course-modal.pug
+    include admin-delete-modal.pug
+    include admin-archive-modal.pug
+    include admin-move-to-active-courses-modal.pug
+    include admin-add-lesson-modal.pug
+    include admin-change-course-icon-modal.pug
+    include admin-add-presentation-modal.pug

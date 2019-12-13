@@ -1,0 +1,20 @@
+#admin-change-course-icon-modal.modal.fade(
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+  )
+    .modal-dialog.modal-dialog-centered(role="document")
+      .modal-content
+        span.closeAddCourseModalIcon(data-dismiss="modal")
+          .close-modal-icon
+        .add-course-title
+            |   Change Icon
+        form(action="")
+            include admin-choose-course-icon.pug
+            button.btn.cancel-button(
+                type='button'
+                data-dismiss="modal"
+            ) Cancel
+            button.btn.create-course-button.disabled-button#change-course-icon(
+                type='button'
+            ) Change Icon

@@ -1,0 +1,51 @@
+#upload-video-modal.modal.fade(
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+    data-controller='lessonupload'
+  )
+    .modal-dialog.modal-dialog-centered(role="document")
+      .modal-content#adminUploadModal
+        span.closeUploadModalIcon(data-dismiss="modal" data-action='click->lessonupload#clearInput')
+          .close-modal-icon
+        #adminUploadIcon
+          .upload-icon
+        #adminUploadHeading
+          | Upload
+        #adminUploadMessage
+          | You may upload a video which is of MP4 format
+        label#adminUploadFormAndButtonWrapper
+          #adminUploadForm
+            | Browse my computer...
+          #adminBrowseButton
+            .search-bar-magnifying-glass
+          input#lessonToBeUploaded.form-control-file(enctype="multipart/form-data" type="file" style="display: none;")
+        #adminUploadButtonsWrapper
+          button#adminUploadButton(disabled data-action='click->lessonupload#upload')
+            | Upload
+          #adminCancelUploadButton(data-dismiss="modal" data-action='click->lessonupload#clearInput')
+            | Cancel
+        .progress.d-none#adminProgressWrapper
+          .progress-bar#adminUploadProgressBar(role="progressbar")
+        .alert.alert-success(role="alert").d-none#successfulAdminUpload
+          | Finished uploading the file!
+        .alert.alert-danger(role="alert").d-none#failedAdminUpload
+          | Failed to upload the file!
+      audio#audio
+script.
+  var f_duration = 0;
+  document.getElementById('audio').addEventListener('canplaythrough', function(e){
+  f_duration = Math.round(e.currentTarget.duration);
+  URL.revokeObjectURL(obUrl);
+  });
+ 
+  var obUrl;
+  document.getElementById('lessonToBeUploaded').addEventListener('change', function(e){
+  var file = e.currentTarget.files[0];
+  
+  if(file.name.match(/\.(avi|mp3|mp4)$/i)){
+    obUrl = URL.createObjectURL(file);
+    document.getElementById('audio').setAttribute('src', obUrl);
+  }
+  });

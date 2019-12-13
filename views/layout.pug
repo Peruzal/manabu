@@ -1,0 +1,89 @@
+doctype html
+html(lang='en')
+  block vars
+  head
+    link(rel="stylesheet", href="/scripts/bootstrap/dist/css/bootstrap.min.css")
+    link(rel='stylesheet', href='/scripts/components-font-awesome/css/fontawesome-all.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/simplemde.min.css')
+    link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet")
+    link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" disabled)
+    link(rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" disabled)
+    
+    script(src='/scripts/jquery/dist/jquery.js')
+    script(src='/scripts/axios/dist/axios.js' async)
+    script(src='/scripts/lodash/lodash.js' async)
+    script(src='/scripts/bootstrap/dist/js/bootstrap.bundle.min.js' async)
+    script(src='/javascripts/vendor/turbolinks.js')
+    script(src='/javascripts/vendor/stimulus.js')
+    script(src='/javascripts/controllers/HomeSearchBarController.js' defer)
+    script(src='/javascripts/controllers/HomeController.js' defer)
+    script(src='/javascripts/controllers/AdminHomeController.js' defer)
+    script(src='/javascripts/controllers/RecommendedCoursesController.js' defer)
+    script(src='/javascripts/controllers/WatchingController.js' defer)
+    script(src='/javascripts/controllers/WatchingCardController.js' defer)
+    script(src='/javascripts/controllers/WatchedCardController.js' defer)
+    script(src='/javascripts/controllers/WhosTeachingController.js' defer)
+    script(src='/javascripts/controllers/LessonCategoryController.js' defer)
+    script(src='/javascripts/controllers/LessonController.js' defer)
+    script(src='/javascripts/controllers/BookmarkController.js' defer)
+    script(src='/javascripts/controllers/QuickStatsController.js' defer)
+    script(src='/javascripts/controllers/FavouriteController.js' defer)
+    script(src='/javascripts/controllers/AuthoredCoursesCardController.js' defer)
+    script(src='/javascripts/controllers/AdminProfileCardController.js' defer)
+    script(src='/javascripts/controllers/AdminNavButtonsController.js' defer)
+    script(src='/javascripts/controllers/LessonListItemController.js' defer)
+    script(src='/javascripts/controllers/CourseAddController.js' defer)
+    script(src='/javascripts/controllers/LessonDeleteController.js' defer)
+    script(src='/javascripts/controllers/LessonUploadController.js' defer)
+    script(src='/javascripts/controllers/LessonDownloadController.js' defer)
+    script(src='/javascripts/controllers/TagController.js' defer)
+    script(src='/javascripts/controllers/CourseEditController.js')
+    script(src='/javascripts/controllers/PreviewContentController.js' defer)
+    script(src='/javascripts/controllers/AuthorController.js' defer)
+    script(src='/javascripts/controllers/LessonEditController.js')
+    script(src='/javascripts/controllers/ArchiveCourseController.js' defer)
+    script(src='/javascripts/controllers/LessonAddController.js' defer)
+    script(src='/javascripts/controllers/ChangeCourseIconController.js' defer)
+    script(src='/javascripts/controllers/ProfileCardController.js' defer)
+    script(src='/javascripts/controllers/AddPresentationController.js' defer)
+    script(src='/javascripts/controllers/CreateTrueOrFalseQuestionController.js' defer)
+    script(src='/javascripts/controllers/PresentationController.js' defer)
+    script(src='/javascripts/controllers/CreateMultipleChoiceQuestionController.js' defer)
+    script(src='/javascripts/controllers/MultipleChoiceController.js' defer)
+    script(src='/javascripts/controllers/TrueOrFalseController.js' defer)
+    script(src='/javascripts/controllers/CourseStatisticsController.js' defer)
+    script(src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" async)
+    script(src="/javascripts/simplemde.min.js")
+    script(src='/javascripts/app.js' defer)
+
+  meta(name='viewport', content='width=device-width, initial-scale=1')
+  main
+    body.theEntireLayout(
+      data-controller='favourite'
+    )
+      nav#manabu-navbar.navbar.navbar-expand-lg.navbar-light.bg-white
+        .container-fluid
+          .navbar-collapse.collapse.justify-content-between
+            a(href='/home' aria-label='Return to the home page')
+              img#manabu-logo(src="http://localhost:3005/uploads/manabu_logo.png")
+            ul.nav.navbar-nav.navbar-left
+              .breadcrumb
+                if(breadcrumbs)  
+                  each breadcrumb in breadcrumbs
+                    if(breadcrumb.href == "#")
+                      .vertical-line-header
+                      .breadcrumb-item.active
+                        | #{breadcrumb.linkName}  
+                    else
+                      .vertical-line-header
+                      .breadcrumb-item
+                        a(href=breadcrumb.href aria-label='This provides information of what you are currently viewing') #{breadcrumb.linkName}
+            button.hamburger-menu#menuButton(
+              data-toggle="popover"
+              data-placement="left"
+              data-content=`
+              <div><a href="/home">Home</a></div>
+              <div><a href="/admin/home">Admin</a></div>
+            `)
+    block content

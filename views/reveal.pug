@@ -1,0 +1,35 @@
+head
+  link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/reveal.js/2.3/css/reveal.css')
+  if theme == 'beige'
+    link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/theme/beige.css')
+  else if theme == 'black'
+    link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/theme/black.css')
+  else if theme == 'night'
+    link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/theme/night.css')
+  else if theme == 'zenburn'
+    link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/lib/css/zenburn.css')   
+  else
+    link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/reveal.js/2.3/css/theme/moon.css')     
+.reveal
+  .slides
+        section(
+          data-markdown=""
+          data-separator="^\n\n\n"
+          data-separator-vertical="^\n\n"
+        )
+          script(type='text/template').
+            #{slides}
+
+script(src='//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/plugin/notes/notes.js')            
+script(src='//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/plugin/highlight/highlight.js')            
+script(src='//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/lib/js/classList.js')
+script(src='//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/lib/js/head.min.js')            
+script(src='//cdnjs.cloudflare.com/ajax/libs/reveal.js/2.3/js/reveal.js')
+script(src='//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/lib/js/head.min.js')
+script(src='//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/plugin/markdown/marked.js')
+script(src='//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/plugin/markdown/markdown.js')
+script.
+  transitionType = "#{transitionType}"
+  Reveal.initialize({
+    transition: transitionType
+  });

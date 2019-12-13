@@ -1,0 +1,54 @@
+#multiple-choice-modal.modal.fade(
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+  data-controller='multiple-choice-controller'
+)
+  .modal-dialog.modal-dialog-centered(role="document")
+    .modal-content#multipleChoiceModal
+      span.closeCreateQuizModalIcon(data-dismiss="modal")
+        .close-modal-icon
+      #adminCreateQuizIcon
+        .create-quiz-icon
+      #multipleChoiceHeading
+        | Multiple Choice
+      #multipleChoiceQuestion
+        | Question
+      #multipleChoiceOptionsWrapper
+        label#firstOptionLabel
+          input#firstOption(type="radio" name="radio")
+          span.checkBox
+        #firstOptionStatement
+          | First
+        label#secondOptionLabel
+          input#secondOption(type="radio" name="radio")
+          span.checkBox
+        #secondOptionStatement
+          | Second option
+        label#thirdOptionLabel
+          input#thirdOption(type="radio" name="radio")
+          span.checkBox
+        #thirdOptionStatement
+          | Third
+        label#fourthOptionLabel
+          input#fourthOption(type="radio" name="radio")
+          span.checkBox
+        #fourthOptionStatement
+          | Fourth
+      .correct-answer
+        .tick-icon#correctAnswer
+        .correct-answer-message
+          | Excellent! You chose the correct answer!
+      .incorrect-answer
+        .cross-icon#incorrectAnswer
+        .incorrect-answer-message
+          | Oh dear! You chose the incorrect answer...
+      #multipleChoiceButtonsWrapper
+        button.multiple-choice-button#submitMultipleChoiceButton(disabled)
+          | Submit
+        button.multiple-choice-button#continueMultipleChoiceButton
+          | Continue
+        button.multiple-choice-button#tryAgainMultipleChoiceButton
+          | Try again
+        #multipleChoiceBackButton(data-dismiss="modal")
+          | Back

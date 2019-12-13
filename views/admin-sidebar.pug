@@ -1,0 +1,40 @@
+div(
+  data-controller='adminhomecontroller'
+)
+  nav#adminSidebar
+    .sidebar-header
+      #adminSidebarButton(data-action=dataActionForSidebar)
+        .profile-icon#adminSidebarButtonIcon
+      #adminSidebarCards(
+        data-controller = 'quickStatsController'
+      )
+        .profileCard(
+          data-controller='adminProfileCardController'
+        )
+        .authored-courses-heading
+          | My courses   
+        .authored-courses-card(
+          data-controller = 'authoredCoursesCardController'
+        )
+          .authored-courses-card-menu
+          .margin-container
+            each course in coursesAuthoredByUser
+              .authored-courses-card-course-container
+                img(src=course.image)
+                .course-title
+                  =course.title
+                .lastEditedDate
+                  =new Date(course.updatedAt).toDateString()
+                .tooltip-container#editTooltip
+                  .tooltip-message-text
+                    | edit   
+                .edit-icon
+                .tooltip-container#moreOptions
+                  .tooltip-message-text
+                    | More options                
+                .more-options-icon
+          .dropdown-container
+            .tooltip-container#more-tooltip
+              .tooltip-message-text
+                | More
+            .down-facing-triangle-icon#watching-triangle-icon

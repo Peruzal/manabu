@@ -1,0 +1,23 @@
+#admin-archive-modal.modal.fade(
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+    data-controller= 'archivecourse'
+  )
+    .modal-dialog.modal-dialog-centered(role="document")
+      .modal-content#adminArchiveModal
+        span.closeArchiveModalIcon(data-dismiss="modal")
+          .close-modal-icon
+        #adminArchiveIcon
+          .send-course-to-archive-icon
+        #adminArchiveHeading
+          | Archive course
+        #adminArchiveMessage
+          | Are you sure you want to move this item?
+          br
+          span(id="courseToBeArchived")
+        #adminArchiveButtonsWrapper
+          #adminArchiveButton
+            | Archive
+          #adminCancelArchiveButton(data-dismiss="modal")
+            | Cancel

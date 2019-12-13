@@ -1,0 +1,23 @@
+#admin-delete-modal.modal.fade(
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+    data-controller= 'lessondelete'
+  )
+    .modal-dialog.modal-dialog-centered(role="document")
+      .modal-content#adminDeleteModal
+        span.closeDeleteModalIcon(data-dismiss="modal")
+          .close-modal-icon
+        #adminDeleteIcon
+          .close-modal-icon
+        #adminDeleteHeading
+          | Delete content
+        #adminDeleteMessage
+          | Are you sure you want to delete
+          br
+          span(id="lessonToBeDeleted")
+        #adminDeleteButtonsWrapper
+          #adminDeleteButton
+            | Delete
+          #adminCancelDeleteButton(data-dismiss="modal")
+            | Cancel

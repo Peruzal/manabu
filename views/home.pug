@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  title
+    | Manabu Home
+  div(
+    data-controller='homecontroller'
+    data-user= user
+    data-recommended_courses= recommended_courses
+  )
+    include home-search-bar.pug
+    include recommended-for-you-section.pug  
+    include sidebar.pug
+

@@ -1,0 +1,23 @@
+#admin-add-lesson-modal.modal.fade(
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+    data-controller = 'lessonadd'
+  )
+    .modal-dialog.modal-dialog-centered(role="document")
+      .modal-content
+        span.closeAddLessonModalIcon(data-dismiss="modal")
+          .close-modal-icon
+        .add-lesson-title
+            | Create Lesson
+        form(action="")
+            .alert.alert-danger(role="alert")
+                | Lesson title already in use
+            input#adminLessonTitle(placeholder = "Give your lesson a title..." autocomplete = "off")
+            button.btn.cancel-button(
+                type='button'
+                data-dismiss="modal"
+            ) Cancel
+            button.btn.create-lesson-button.disabled-button(
+                type='button'
+            ) Create Lesson

@@ -1,0 +1,44 @@
+#true-or-false-modal.modal.fade(
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+  data-controller='true-or-false-controller'
+)
+  .modal-dialog.modal-dialog-centered(role="document")
+    .modal-content#trueOrFalseModal
+      span.closeCreateQuizModalIcon(data-dismiss="modal")
+        .close-modal-icon
+      #adminCreateQuizIcon
+        .create-quiz-icon
+      #trueOrFalseHeading
+        | True or False
+      #trueOrFalseStatement
+        | Statement
+      #trueOrFalseOptionsWrapper
+        label#trueOptionLabelForUser
+          input#trueOption(type="radio" name="radio")
+          span.checkBox
+        #trueOptionStatement
+          | True
+        label#falseOptionLabelForUser
+          input#falseOption(type="radio" name="radio")
+          span.checkBox
+        #falseOptionStatement
+          | False
+      .correct-answer#trueOrFalseCorrectAnswer
+        .tick-icon#correctAnswer
+        .correct-answer-message#trueOrFalseCorrectMessage
+          | Excellent! You chose the correct answer!
+      .incorrect-answer#trueOrFalseIncorrectAnswer
+        .cross-icon#incorrectAnswer
+        .incorrect-answer-message#trueOrFalseIncorrectMessage
+          | Oh dear! You chose the incorrect answer...
+      #trueOrFalseButtonsWrapper
+        button.true-or-false-button#submitTrueOrFalseButton(disabled)
+          | Submit
+        button.true-or-false-button#continueTrueOrFalseButton
+          | Continue
+        button.true-or-false-button#tryAgainTrueOrFalseButton
+          | Try again
+        #trueOrFalseBackButton(data-dismiss="modal")
+          | Back

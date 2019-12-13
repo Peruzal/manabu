@@ -1,0 +1,26 @@
+#admin-add-contributor-modal.modal.fade(
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+    data-controller = 'author-controller'
+  )
+    .modal-dialog.modal-dialog-centered(role="document")
+      .modal-content#adminAddContributorModal
+        span.closeAddContributorModalIcon(data-dismiss="modal")
+          .close-modal-icon
+        #adminAddContributorIcon
+          .add-contributor-icon
+        #adminAddContributorHeading
+          | Add / Remove a Contributor
+        .alert.alert-danger#noSuchUserWarning(role="alert")
+          | No such person in the database.
+        .alert.alert-danger#failureToAddUserWarning(role="alert")
+          | Failed to add contributor. Please try again.
+        .alert.alert-danger#failureToRemoveUserWarning(role="alert")
+          | Failed to remove contributor.
+        input#adminAddContributorForm(type="text" placeholder= 'Enter an email address...')
+        #adminAddContributorButtonsWrapper
+          button#adminAddContributorButton(disabled)
+            | Add/Remove
+          #adminCancelAddContributorButton(data-dismiss="modal")
+            | Cancel

@@ -1,0 +1,59 @@
+block content
+  #lowerSection
+    #lowerSectionContainer
+      .recommended-for-you-text
+        | Recommended for you:
+      button#leftArrowForCourses
+        .left-angle-icon
+      button#rightArrowForCourses
+        .right-angle-icon
+      .courses-container#coursesContainer(
+        data-controller='whosTeachingController recommendedcoursescontroller'
+        data-map_of_course_id_and_title= map_of_course_id_and_title
+        data-map_of_first_lesson_id_and_course_title= map_of_first_lesson_id_and_course_title
+      )
+        each course in recommended_courses
+          .course-container
+            .courses-card
+                .upper-card-section
+                    img#play-video(src='http://localhost:3005/uploads/Play_graphic.png')
+                    .inner-courses-card-shaded
+                      #courseTitle
+                        | #{course.title}
+                      img#courseImage(src=course.image, alt='http://localhost:3005/uploads/default.jpg')
+                    #ratingWrapper
+                      .stars-outer
+                        .star-icon-for-ratings
+                        .star-icon-for-ratings
+                        .star-icon-for-ratings
+                        .star-icon-for-ratings
+                        .star-icon-for-ratings
+                        .stars-inner
+                          .filled-star-icon
+                          .filled-star-icon
+                          .filled-star-icon
+                          .filled-star-icon
+                          .filled-star-icon
+                .inner-courses-card-horizontal-line
+                .whos-teaching-text
+                    | Who's teaching
+                each author in course.authors
+                  img.inner-courses-card-author-image(src=author.image, alt='/images/default.jpg')
+                  .inner-courses-card-author-name
+                    | #{author.name}  #{author.surname}
+  script.
+    const step = 300;
+
+    $("#leftArrowForCourses").bind("click", (event) => {
+      event.preventDefault();
+      $(".courses-container").animate({
+        scrollLeft: "-=" + step + "px"
+      });
+    });
+
+    $("#rightArrowForCourses").bind("click", (event) => {
+      event.preventDefault();
+      $(".courses-container").animate({
+        scrollLeft: "+=" + step + "px"
+      });
+    });

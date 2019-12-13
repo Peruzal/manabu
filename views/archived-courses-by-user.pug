@@ -1,0 +1,197 @@
+each courseAuthoredByUser in archivedCoursesByUser
+          .courseAuthoredByUser.courseArchivedByUser
+            #courseButtonsWrapper
+              .tooltip-container.tooltip-container-left#move-to-courses
+                .tooltip-message-text 
+                  | Move to courses
+              .archiveCourseButton(
+                  data-controller = 'archivecourse'
+                  data-toggle = 'modal'
+                  data-target = '#admin-move-to-active-courses-modal'
+                  data-course-id =`${courseAuthoredByUser.id}`
+                  data-course-title =`${courseAuthoredByUser.title}`
+                )
+                .move-course-icon#archive-icon
+              .tooltip-container.tooltip-container-left#edit-course
+                .tooltip-message-text 
+                  | Edit course
+              .editCourseButton
+                .writing-pencil-icon#edit-icon
+            .course-image(
+              data-toggle = 'modal'
+              data-target = '#admin-change-course-icon-modal'
+              data-courseid = courseAuthoredByUser.id
+            )
+              .upload-course-shade
+                .upload-course-image-icon
+              input.image-upload(type='file' data-courseid=courseAuthoredByUser.id)  
+              img(src=courseAuthoredByUser.image)
+            input.course-title(
+              data-course=courseAuthoredByUser
+              value=courseAuthoredByUser.title
+              disabled
+            )  
+            .last-edited-course
+              | last edited 
+              =new Date(courseAuthoredByUser.updatedAt).toDateString()
+            .edit-course-title-icon-container
+              .writing-pencil-icon
+            .course-description
+              =courseAuthoredByUser.description
+            .row.course-stats-container
+              .course-stats
+                if courseAuthoredByUser.authorCounts < 10
+                  ='0'+courseAuthoredByUser.authorCounts
+                else
+                  =courseAuthoredByUser.authorCounts
+              .tooltip-container.tooltip-container-left#contributors
+                .tooltip-message-text 
+                  | Contributors                   
+              .profile-icon.course-stats-icon
+              .course-stats.number-of-lessons
+                if courseAuthoredByUser.lessonTypeCounts.VIDEO < 10 && courseAuthoredByUser.lessonTypeCounts.VIDEO > 0
+                  ='0'+courseAuthoredByUser.lessonTypeCounts.VIDEO
+                else if courseAuthoredByUser.lessonTypeCounts.VIDEO > 10
+                  =courseAuthoredByUser.lessonTypeCounts.VIDEO  
+                else
+                  ='00'
+              .tooltip-container.tooltip-container-left#videos
+                .tooltip-message-text 
+                  | Videos                    
+              .video-camera-icon.course-stats-icon
+              .course-stats.number-of-lessons
+                if courseAuthoredByUser.tagCounts < 10
+                  ='0'+courseAuthoredByUser.tagCounts
+                else
+                  =courseAuthoredByUser.tagCounts
+              .tooltip-container.tooltip-container-left#tags
+                .tooltip-message-text 
+                  | Tags                  
+              .tag-icon.course-stats-icon
+              .course-stats.number-of-lessons
+                | 00
+              .tooltip-container.tooltip-container-left#tests
+                .tooltip-message-text 
+                  | Quiz                
+              .test-progress-icon.course-stats-icon
+          .editCourseWrapper.editArchivedCourseWrapper
+            .archivedEditAndAddLessonsWrapper
+              .editLessonsWrapper.sortable
+                each lesson in courseAuthoredByUser.lessons.sort((l1, l2) => l1.order - l2.order)
+                  .editLessonRow(
+                    data-lesson = lesson
+                  )
+                    .tooltip-container.tooltip-container-left#move-content
+                      .tooltip-message-text 
+                        | Move content
+                    .drag-lesson-icon
+                    .moveLessonIcon
+                      .placeholder-icon
+                    .durationOfLesson
+                      = lesson.durationInSeconds
+                    input.nameOfLesson(value=lesson.title disabled data-lesson=lesson)
+                    .editLessonIcon
+                      .writing-pencil-icon
+                    .editLessonIconsToolbar
+                      .editLessonIcons
+                        .tooltip-container.tooltip-container-left#replace-content
+                          .tooltip-message-text 
+                            | Replace content
+                        .upload-icon.modify-lesson-icon(
+                          data-controller= 'lessonupload'
+                          data-toggle="modal"
+                          data-target="#upload-video-modal"
+                          data-course-id=`${courseAuthoredByUser.id}`
+                          data-lesson-id=`${lesson.id}`
+                          data-lesson-title=`${lesson.title}`
+                        )
+                        .tooltip-container.tooltip-container-left#download
+                          .tooltip-message-text 
+                            | Download
+                        .download-icon.modify-lesson-icon(
+                          data-controller= 'lessondownload'
+                          data-toggle="modal"
+                          data-target="#download-video-modal"
+                          data-lesson-title=`${lesson.title}`
+                          data-lesson-url=`${lesson.source}`                     
+                        )
+                        .tooltip-container.tooltip-container-left#preview
+                          .tooltip-message-text 
+                            | preview
+                        .eye-icon-regular.modify-lesson-icon(
+                          data-controller = 'previewcontentcontroller'
+                          data-toggle= 'modal'
+                          data-target='#admin-preview-content-modal'
+                          data-course-id=`${courseAuthoredByUser.id}`
+                          data-lesson-id=`${lesson.id}`
+                        )
+                        .tooltip-container.tooltip-container-left#add-remove-a-contributor
+                          .tooltip-message-text 
+                            | Add / remove a contributor
+                        .add-contributor-icon.modify-lesson-icon(
+                          data-toggle= 'modal'
+                          data-target= '#admin-add-contributor-modal'
+                          data-course= courseAuthoredByUser
+                          data-lesson-id=`${lesson.id}`
+                        )
+                        .tooltip-container.tooltip-container-left#add-quiz
+                          .tooltip-message-text 
+                            | Add quiz                       
+                        .test-progress-icon.modify-lesson-icon(
+                          data-controller = 'createquiz'
+                          data-toggle = 'modal'
+                          data-target = '#admin-create-quiz-modal'
+                          data-course-id = `${courseAuthoredByUser.id}`
+                          data-lesson-id = `${lesson.id}`                         
+                        )
+                        .tooltip-container.tooltip-container-left#add-section
+                          .tooltip-message-text
+                            | Add section
+                        .add-section-icon.modify-lesson-icon
+                        .tooltip-container.tooltip-container-left#delete-item
+                          .tooltip-message-text
+                            | Delete item
+                        .delete-icon.modify-lesson-icon(
+                          data-toggle="modal"
+                          data-target="#admin-delete-modal"
+                          data-course-id=`${courseAuthoredByUser.id}`
+                          data-lesson-id=`${lesson.id}`
+                          data-lesson-title=`${lesson.title}`
+                        )
+              .addContentToSeriesWrapper
+                .addContentIcon(
+                  data-toggle = 'modal'
+                  data-target = '#admin-add-lesson-modal'
+                  data-course-id = courseAuthoredByUser.id
+                )
+                  .plus-sign-in-circle
+                .addContentText
+                    | Add content to the series...
+            .row#tags
+              .tag-icon(
+                data-toggle = 'modal'
+                data-target = '#admin-add-tag-modal'
+                data-course= courseAuthoredByUser
+              )
+              .add-remove-text(
+                data-toggle = 'modal'
+                data-target = '#admin-add-tag-modal'
+                data-course= courseAuthoredByUser
+              )
+                | Add/Remove
+              #tagsOfArchivedCourses
+                each tag in courseAuthoredByUser.tags
+                  .admin-tag
+                    | #{tag.label}
+            .editCourseDescription
+              .editCourseDescriptionCounter
+                span#remainingCharacters
+                  | 250
+                | &nbsp of 
+                span#totalCharacters
+                  | 250
+                | &nbsp characters remaining
+              textarea.editCourseDescriptionText(
+                maxlength="250"
+                data-courseAuthoredByUser=courseAuthoredByUser
+              )

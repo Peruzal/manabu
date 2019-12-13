@@ -1,0 +1,24 @@
+#download-video-modal.modal.fade(
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+    data-controller='lessondownload'
+  )
+    .modal-dialog.modal-dialog-centered(role="document")
+      .modal-content#adminDownloadModal
+        span.closeDownloadModalIcon(data-dismiss="modal")
+          .close-modal-icon
+        #adminDownloadIcon
+          .download-icon
+        #adminDownloadHeading
+          | Download
+        #adminDownloadMessage
+          | Are you sure you want to download
+          br
+          span(id="lessonToBeDownloaded")
+        #adminDownloadButtonsWrapper
+          a#adminDownloadButton
+            input#adminDownloadButtonText(type="button" value="Download")
+          #adminCancelDownloadButton(data-dismiss="modal")
+            | Cancel

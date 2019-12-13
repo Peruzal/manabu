@@ -1,0 +1,55 @@
+extends layout
+
+block content
+        br
+        br
+        br
+        br
+        br
+        .container
+                .row.presentation-editor-view
+                        div.col-6.presentation-container(
+                                data-controller="presentationController"
+                        )
+                                h5= presentation.title
+                                        .row
+                                                .col
+                                                        .choose-a-presentation-theme-text
+                                                                | Change title
+                                                        input.presentation-input-title(placeholder="presentation title..." autocomplete="off" value=presentation.title)
+                                                .col
+                                                        #theme
+                                                                .choose-a-presentation-theme-text
+                                                                        | Change theme
+                                                                .dropdown-presentation-theme(data-toggle="dropdown")
+                                                                        .select-one-text
+                                                                                | #{presentation.theme}
+                                                                        .down-angle-icon    
+                                                                .dropdown-menu
+                                                                        .dropdown-item beige
+                                                                        .dropdown-item black
+                                                                        .dropdown-item night
+                                                                        .dropdown-item zenburn
+                                                                        .dropdown-item moon
+                                                .col
+                                                        #transition
+                                                                .choose-a-presentation-transition-text
+                                                                        | Change transition
+                                                                .dropdown-presentation-transition(data-toggle="dropdown")
+                                                                        .select-one-text
+                                                                                | #{presentation.transitionType}
+                                                                        .down-angle-icon    
+                                                                .dropdown-menu
+                                                                        .dropdown-item zoom
+                                                                        .dropdown-item concave
+                                                                        .dropdown-item convex
+                                textarea#presentationEditor(
+                                        name="presentation"
+                                        data-presentation=presentation
+                                )
+                                button.btn.update-presentation-button update presentation
+                                button.btn.view-presentation-button( 
+                                        data-presentation-id= presentation.id
+                                ) view presentation
+                        .col
+                                iframe(src= `http://localhost:3005/reveal/${presentation.id}`, frameborder="0")

@@ -1,0 +1,53 @@
+extends layout
+
+block content
+    div#themeContoller(
+        data-controller="changeThemeController",
+        data-presentations= presentations
+        )
+    .row
+        each presentation in presentations
+            .div.col-lg-3
+                .card.presentation-card.text-center
+                    .card-header
+                        h5.font-weight-light.card-title= presentation.title
+                    .card-body
+                        .row
+                            .div.col
+                                h4.mb-0.pb-2 Manage
+                                li.manabu-meta-list-item.manabu-clickable
+                                    a(
+                                        data-toggle="modal"
+                                        data-target="#edit-transition-theme-modal"
+                                        style="text-decoration:none; color:blue"
+                                        presentationTitle=presentation.title
+                                        presentationTheme=presentation.theme
+                                        presentationTransition=presentation.transitionType
+                                    ) properties
+                                if presentation.slides === ''
+                                    li.manabu-meta-list-item.manabu-clickable
+                                        a(href=`/uploadPresentation/${presentation.title}/${presentation.theme}/${presentation.transitionType}` style="text-decoration:none; color:blue") add slides
+                                else
+                                    li.manabu-meta-list-item.manabu-clickable
+                                        a(href=`/uploadPresentation/${presentation.title}/${presentation.theme}/${presentation.transitionType}` style="text-decoration:none; color:blue") edit slides
+                                li.manabu-meta-list-item.manabu-clickable
+                                    a(href=`/reveal/${presentation.title}` target="_blank" style="text-decoration:none; color:blue") view
+                                li.manabu-meta-list-item.manabu-clickable(
+                                    data-toggle="modal"
+                                    data-target="#delete-presentation-modal"
+                                    data-presentation-title=`${presentation.title}`
+                                    style="text-decoration:none; color:blue"
+                                ) delete
+
+                br                      
+        .div.col-lg-3
+            .card.manabu-clickable.text-center.jumbotron.vertical-center(
+                style="height:226px;"
+                data-toggle="modal"
+                data-target="#add-presentation-modal"
+                )
+                h1    +
+
+    include add-presentation-modal.pug
+    include delete-presentation-modal.pug
+    include edit-transition-theme-modal.pug

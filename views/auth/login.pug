@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+  if (error)
+    .alert.alert-warning(role="alert")
+      | Could not log you on with the provided credentials
+  form(method="POST")
+    .form-group
+      label(for="exampleInputEmail1") Email address
+      input#exampleInputEmail1.form-control(value="cersei@casterlyrock.com" type="email" name="email" aria-describedby="emailHelp" placeholder="Enter email")
+      small#emailHelp.form-text.text-muted Eventually this will happen through ldap
+    button.btn.btn-primary(type="submit") Submit

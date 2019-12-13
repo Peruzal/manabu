@@ -1,0 +1,28 @@
+#delete-presentation-modal.modal.fade(
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  data-controller='lessondelete'
+  data-presentationTitle= presentationTitle
+)
+  .modal-dialog.modal-dialog-centered(role="document")
+    .modal-content
+      .modal-header
+        h5#exampleModalLabel.modal-title Danger! This action cannot be reversed.
+        button.close(type="button" data-dismiss="modal" aria-label="Close")
+          span(aria-hidden="true") ×
+      .modal-body
+        | Are you 100% sure that you want to delete the presentation:
+        span#modal-presentation-title.font-weight-bold
+        |?
+      .modal-footer
+        button.btn.btn-secondary.btn-outline-dark.text-uppercase(
+          type="button"
+          data-dismiss="modal"
+          style='margin-right:18.25rem;'
+        ) Cancel
+        button.float-right.btn.btn-danger.text-uppercase(
+          type="button"
+          data-action='click->lessondelete#presentationDelete'
+        ) Delete

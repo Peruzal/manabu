@@ -1,0 +1,170 @@
+extends layout
+
+block content
+  title
+    | Manabu Watching
+  #watchingPage
+    #courseAndLessonWrapper(
+      data-controller='lesson'
+      data-lesson= lesson
+      data-lesson-id= lesson.id
+      data-course-id= lesson.course
+      data-progress= lesson.progress
+      data-lessons= lessonsOfCourse
+    )
+      if lesson.type == 'VIDEO'
+        #videoWrapper
+            img#playIconOnVideoPause(src='http://localhost:3005/uploads/Play_graphic.png', alt='/images/default.jpg')
+            video#video(controls=''
+              src=lesson.source
+              type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"'
+            )
+            if favouriteCourse
+              each favouriteCourse in favouriteCourses
+                if favouriteCourse.courseId == course.id
+                  .star-icon-for-favourites.favourite-course#favouriteIconForCourse(
+                    data-status = favouriteCourse.status
+                    data-courseId = favouriteCourse.courseId
+                  )  
+            else  
+              .star-icon-for-favourites.favourite-course#favouriteIconForCourse(
+                    data-status = 0
+                    data-courseId = course.id
+                  )        
+            img#courseLogo(src=course.image, alt='/images/default.jpg')
+            #courseAndLessonInfoWithAuthorWrapper
+              #courseAndLessonInfo
+                #titleOfCourse
+                  | #{course.title} 
+                #lessonTitleOfCourse
+                    | #{lesson.title}
+                    span#lessonNumber
+              .authorWrapper
+                each author in course.authors
+                  .authorPicAndName
+                    .authorPic
+                      img#authorPic(src=author.image, alt='/images/default.jpg')
+                    .inner-courses-card-author-name#authorName
+                      | #{author.name}  #{author.surname}
+      else if lesson.type == 'PRESENTATION'
+        #presentationWrapper
+          iframe(src= lesson.source, frameborder="0")
+      #tagWrapper
+        #tagText
+          | Tags:
+        #tagButtonWrapper
+          each tag in tags
+            #tagButton
+              #tagButtonText
+                | #{tag}
+        .bookmark-icon
+      #descriptionAndLessonWrapper
+        #descriptionAndKeyWrapper
+          #descriptionWrapper
+            | #{course.description}
+          #keyWrapper
+            #nowPlayingIconWrapper
+              .eye-icon-regular#nowPlayingIcon
+            #nowPlayingText
+              | Now playing
+            #watchingIconWrapper
+              .ellipsis-solid#watchingIcon
+            #watchingText
+              | Watching
+            #unwatchedIconWrapper
+              .right-facing-chevron#unwatchedIcon
+            #unwatchedText
+              | Unwatched
+            #completeIconWrapper
+              .tick-in-dotted-circle-regular#completeIcon
+            #completeText
+              | Complete
+          #courseLength
+            | #{course.counts.VIDEO || 0} videos &nbsp &nbsp &nbsp
+            | #{course.duration}
+        #lessonTable(
+          data-controller='lessonCategoryController bookmarkController'
+          data-coursecategories=courseCategories
+        )
+          each courseCategory in courseCategories
+            .lesson-category(
+              data-coursecategory = courseCategory
+            )
+              .row
+                  .lesson-category-title
+                    =courseCategory   
+                  .down-angle-icon      
+            .orderby-section
+              .row
+                .status.orderby-title
+                  | Status  
+                .sequence.orderby-title
+                  | Sequence
+                .length.orderby-title
+                  | Length
+                .bookmarks.orderby-title
+                  | Bookmarks
+                .testYourUndestanding.orderby-title
+                  | Test your understanding
+            .lessons-container
+              each lesson in lessonsOfCourse
+                if lesson.category == courseCategory
+                    .lesson-container
+                      .row(
+                        data-lesson=lesson
+                        data-lessonId=lesson.id
+                      )
+                        .progress-indicator(
+                          data-lessonId=lesson.id
+                          data-lessonprogress=course.lessonProgress
+                          data-latestlessonprogress=course.lessonProgress.lessons[lesson.id]
+                        )
+                          .ellipsis-solid
+                          .right-facing-chevron
+                          .tick-in-dotted-circle-regular
+                          .eye-icon-regular
+                        .lesson-title
+                          =lesson.title
+                        .lesson-length
+                          if(lesson.duration =='0 seconds')
+                            =lesson.duration = '0:00'
+                          else
+                            =lesson.duration
+                        .bookmarks-container(
+                          data-lessonId=lesson.id 
+                        )
+                          each bookmark in bookmarks
+                            if lesson.id == bookmark.lessonId && lesson.course == bookmark.courseId
+                                .bookmark-icon
+                                .bookmark-text
+                                  | #{bookmark.duration}
+                        if lesson.multipleChoiceQuestions.length === 0 && lesson.trueOrFalseQuestions.length === 0
+                          .test-progress#noTestProgress
+                            .test-progress-icon(style='--quiz-color:#9a9595;')
+                            .test-progress-text
+                              | No quiz available
+                        else if lesson.multipleChoiceQuestions.length > 0
+                          .test-progress#multipleChoiceTestProgress(
+                            data-target = '#multiple-choice-modal'
+                            data-multiple-choice-quiz = lesson.multipleChoiceQuestions
+                            data-course-id = lesson.course
+                            data-lesson-id = lesson.id
+                            data-lessons = lessonsOfCourse
+                          )
+                            .test-progress-icon(style='--quiz-color:#af144b;')
+                            .test-progress-text
+                              | Quiz available
+                        else
+                          .test-progress#trueOrFalseTestProgress(
+                            data-target = '#true-or-false-modal'
+                            data-true-or-false-quiz = lesson.trueOrFalseQuestions
+                            data-course-id = lesson.course
+                            data-lesson-id = lesson.id
+                            data-lessons = lessonsOfCourse
+                          )
+                            .test-progress-icon(style='--quiz-color:#af144b;')
+                            .test-progress-text
+                              | Quiz available
+  include sidebar.pug
+  include multiple-choice-modal.pug
+  include true-or-false-modal.pug

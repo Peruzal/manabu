@@ -1,0 +1,21 @@
+#admin-preview-content-modal.modal.fade(
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+    data-controller = 'previewcontentcontroller'
+  )
+    .modal-dialog.modal-dialog-centered(role="document")
+      .modal-content#adminPreviewContentModal
+        span.closePreviewContentModalIcon(data-dismiss="modal")
+          .close-modal-icon
+        #adminPreviewContentIcon
+          .preview-content-icon
+        #adminPreviewContentHeading
+          | Preview Content
+        #adminPreviewContentMessage
+          | Would you like to open the content in user mode?
+        #adminPreviewContentButtonsWrapper
+          #adminPreviewContentButton
+            | Preview
+          #adminCancelPreviewContentButton(data-dismiss="modal")
+            | Cancel

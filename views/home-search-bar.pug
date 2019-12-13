@@ -1,0 +1,41 @@
+block content
+  div(
+    data-controller='homeSearchBar'
+    data-titles_tags_and_authors= titles_tags_and_authors
+    data-titles_of_courses= titles_of_courses
+    data-map_of_id_and_title= map_of_id_and_title
+    data-random_course= random_course
+    data-map_of_course_id_and_title= map_of_course_id_and_title
+    data-map_of_first_lesson_id_and_course_title= map_of_first_lesson_id_and_course_title
+  )
+    #upperSection
+      #greetingWrapper
+        .greeting-container
+          .greetingMessage
+            | Welcome back, 
+            span#personBeingGreeted
+              | #{user.name}. 
+            | What would you like to do?
+        .search-and-button-wrapper#searchAndButtonsWrapper
+          .search-container
+            ul#results
+            input#searchForm(type='text', placeholder='Find something to learn...', name='search' data-action='keyup->homeSearchBar#showPossibleSearchResults' autocomplete="off")
+            button#searchButton(type='submit' data-action='click->homeSearchBar#goToSearchResult')
+              .search-bar-magnifying-glass
+
+        .three-buttons-container
+          button#continueWhereILeftOff(data-action='click->homeSearchBar#sortLessonProgresses')
+            #continueWhereILeftOffIcon
+              .tick-in-dotted-circle-regular
+            #continueWhereILeftOffText
+              | Continue where I left off...
+          button#trySomethingNew(data-action='click->homeSearchBar#gotoLatestCourse')
+            #trySomethingNewIcon
+              .ringing-bell-regular
+            #trySomethingNewText
+              | Try something new...
+          button#trySomethingRandom(type='submit' data-action='click->homeSearchBar#tryRandomCourse')
+            #trySomethingRandomIcon
+              .question-mark-in-circle-regular
+            #trySomethingRandomText
+              | Try something random now!

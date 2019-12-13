@@ -1,0 +1,77 @@
+each courseAuthoredByUser in coursesAuthoredByUser
+  .courseAuthoredByUser.activeCourses
+    .view-stats-arrow
+      .down-angle-icon
+    .view-stats-arrow
+      .up-angle-icon
+    .course-image
+      img(src=courseAuthoredByUser.image)
+    .course-title
+      | #{courseAuthoredByUser.title}
+    .last-edited-course
+      | last edited 
+      =new Date(courseAuthoredByUser.updatedAt).toDateString()
+    .course-description
+    .row.course-stats-container
+      .course-stats
+        if courseAuthoredByUser.authorCounts < 10
+          |  03
+        else
+          |  04
+      .tooltip-container.tooltip-container-left#watchingStats
+        .tooltip-message-text 
+          | Watching              
+      .eye-icon-regular.course-stats-icon
+      .course-stats.number-of-lessons
+        if courseAuthoredByUser.lessonTypeCounts.VIDEO < 10 && courseAuthoredByUser.lessonTypeCounts.VIDEO > 0
+          ='0'+courseAuthoredByUser.lessonTypeCounts.VIDEO
+        else if courseAuthoredByUser.lessonTypeCounts.VIDEO > 10
+          =courseAuthoredByUser.lessonTypeCounts.VIDEO  
+        else
+          ='00'
+      .tooltip-container.tooltip-container-left#videos
+        .tooltip-message-text 
+          | Videos                    
+      .video-camera-icon.course-stats-icon
+      .course-stats.number-of-lessons
+        if courseAuthoredByUser.tagCounts < 10
+          |  05
+        else
+          |  02
+      .tooltip-container.tooltip-container-left#completedStats
+        .tooltip-message-text 
+          | Completed              
+      .tick-in-circle.course-stats-icon
+      .course-stats.number-of-lessons
+        | 00
+      .tooltip-container.tooltip-container-left#tests
+        .tooltip-message-text 
+          | Quiz                
+      .test-progress-icon.course-stats-icon
+  .track-user-progress-container
+    .user-progress-headings
+      .status-heading
+        | Status
+      .name-heading
+        | User Name
+      .surname-heading
+        | User Surname
+      .enrolled-heading
+        | Enrolled
+      .last-access-heading
+        | Last Access
+      .progress-heading
+        | Progress
+      .quizzes-heading
+        | Quizzes
+      .actions-heading
+        | Actions
+    .user-progress-upper-line
+    .user-progress-data
+      .loader
+    .user-progress-lower-line
+    .add-user-manually
+      #addUserManuallyIcon
+        .plus-sign-in-circle
+      #addUserManuallyText
+        | Add user manually...

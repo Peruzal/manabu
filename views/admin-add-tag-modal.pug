@@ -1,0 +1,20 @@
+#admin-add-tag-modal.modal.fade(
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+    data-controller = 'tag-controller'
+  )
+    .modal-dialog.modal-dialog-centered(role="document")
+      .modal-content#adminAddTagModal
+        span.closeAddTagModalIcon(data-dismiss="modal")
+          .close-modal-icon
+        #adminAddTagIcon
+          .tag-icon
+        #adminAddTagHeading
+          | Add / Remove a Tag
+        input#adminAddTagForm(type="text" placeholder= 'Add or remove a tag...')
+        #adminAddTagButtonsWrapper
+          button#adminAddTagButton(disabled)
+            | Add / Remove
+          button#adminCancelAddTagButton(data-dismiss="modal")
+            | Cancel

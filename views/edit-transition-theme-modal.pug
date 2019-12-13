@@ -1,0 +1,46 @@
+#edit-transition-theme-modal.modal.fade(
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+    data-controller="EditPresentationController"
+  )
+    .modal-dialog.modal-dialog-centered(role="document")
+      .modal-content
+        .modal-header
+          h5#exampleModalLabel.modal-title Edit presentation
+          button.close(type="button" data-dismiss="modal" aria-label="Close")
+            span(aria-hidden="true") ×
+        .modal-body
+          form.was-validated
+            .form-group
+              label(for="title") Presentation title
+              input.title.form-control(required pattern = ".*[^ ].*", name="title")
+            .form-group
+              label(for="transitionType") Transition type
+              select.transition.form-control(
+                name="transitionType"
+              )
+                option#transition(selected)
+            .form-group
+              label(for="theme") Theme
+              select.theme.form-control(
+                name="theme"
+              )
+                option#theme(selected) 
+            .form-group
+              label(for="type") Lesson type
+              select#type.form-control(
+                disabled
+              )
+                option PRESENTATION
+            .modal-footer
+            .text-left
+              button.button.btn.btn-outline-dark.text-uppercase(
+                type="button"
+                data-dismiss="modal"
+                ) Cancel
+              button.float-right.button.btn.btn-dark.text-uppercase.text-white(
+                type="button"
+                data-action='click->EditPresentationController#editPresentationProperties'
+              ) Edit  

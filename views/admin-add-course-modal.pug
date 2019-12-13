@@ -1,0 +1,39 @@
+#admin-add-course-modal.modal.fade(
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+    data-controller = 'courseadd'
+  )
+    .modal-dialog.modal-dialog-centered(role="document")
+      .modal-content
+        span.closeAddCourseModalIcon(data-dismiss="modal")
+          .close-modal-icon
+        .add-course-title
+            |   Add course
+        form(action="")
+            .alert.alert-danger(role="alert")
+                | Course title already in use
+            input#adminCourseTitle(placeholder="Give your course a title..." autocomplete = "off")
+            .courseDescription
+                .courseDescriptionCharacterCounter
+                    span#remainingCharacters
+                        | 250
+                    | &nbsp of 
+                    span#totalCharacters
+                        | 250
+                    | &nbsp characters remaining
+                textarea.courseDescriptionTextarea(placeholder='Add a short description...' maxlength='250')
+            include admin-choose-course-icon.pug
+            .choose-an-icon
+                | Choose an icon                
+            .icons-to-choose-from
+                .right-angle-icon
+                .left-angle-icon
+                .row-of-images
+            button.btn.cancel-button(
+                type='button'
+                data-dismiss="modal"
+            ) Cancel
+            button.btn.create-course-button.disabled-button#create-course-button(
+                type='button'
+            ) Create Course

@@ -1,0 +1,63 @@
+#admin-add-presentation-modal.modal.fade(
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+    data-controller="addpresentationcontroller"
+    data-presentations=presentations
+  )
+    .modal-dialog.modal-dialog-centered(role="document")
+      .modal-content
+        span.closeAddLessonModalIcon(data-dismiss="modal")
+          .close-modal-icon     
+        .add-presentation-title
+          | Create presentation
+        form(action="")
+            .alert.alert-danger(role="alert")
+                | Presentation title already in use
+            input#adminPresentationTitle(placeholder = "Give your presentation a title..." autocomplete = "off")
+            #course
+              .choose-a-presentation-course-text
+                  | Choose course
+              .dropdown-presentation-theme(data-toggle="dropdown")
+                  .select-one-text(
+                      data-course-id = 0
+                  )
+                      | choose course
+                  .down-angle-icon    
+              .dropdown-menu
+                each courseAuthoredByUser in coursesAuthoredByUser
+                  .dropdown-item(
+                      data-course-id = courseAuthoredByUser.id
+                    ) #{courseAuthoredByUser.title}           
+            #theme
+              .choose-a-presentation-theme-text
+                  | Choose theme
+              .dropdown-presentation-theme(data-toggle="dropdown")
+                  .select-one-text
+                      | moon
+                  .down-angle-icon    
+              .dropdown-menu
+                  .dropdown-item beige
+                  .dropdown-item black
+                  .dropdown-item night
+                  .dropdown-item zenburn
+                  .dropdown-item moon
+            #transition    
+              .choose-a-category-text
+                  | Choose transition
+              .dropdown-presentation-transition(data-toggle="dropdown")
+                  .select-one-text
+                      | convex
+                  .down-angle-icon
+              .dropdown-menu
+                  .dropdown-item zoom
+                  .dropdown-item concave
+                  .dropdown-item convex
+            button.btn.cancel-button(
+                type='button'
+                data-dismiss="modal"
+            ) Cancel
+            button.btn.create-presentation-button.disabled-button(
+                type='button'
+            ) Create presentation

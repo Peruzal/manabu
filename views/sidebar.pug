@@ -1,0 +1,119 @@
+div(
+  data-controller='homecontroller watchingcontroller adminhomecontroller'
+)
+  nav#sidebar
+    .sidebar-header
+      #sidebarButton(data-action=dataActionForSidebar)
+        .profile-icon#sidebarButtonIcon
+      .profileCard(data-controller = 'profilecardcontroller')
+        .profileMenu
+        .upperProfileCard
+          .profilePic
+            img#profilePic(src=user.image, alt='/images/default.jpg')
+          .profileName
+            | #{user.name}
+          .profileEmail
+            | #{user.email}
+        .lowerProfileCard
+          .profileStats
+            .currentCourses
+              | #{numberOfCoursesStillInProgress}
+            .tooltip-container.tooltip-container-left#watching
+              .tooltip-message-text 
+                | watching
+            .span.profileIcons
+              .eye-icon-regular
+            .completedCourses
+              | #{numberOfCompletedCourses}
+            .tooltip-container.tooltip-container-left#watched
+              .tooltip-message-text 
+                | watched
+            .span.profileIcons
+              .tick-in-circle
+            .favouriteCourses
+              | 04
+            .tooltip-container.tooltip-container-left#favourites
+              .tooltip-message-text 
+                | favourites
+            .span.profileIcons
+              .unfilled-star-icon
+      - var watchingCourseExists = false;
+      each course in courses
+        if course.lessonProgress.started == true
+          - watchingCourseExists = true;    
+      if watchingCourseExists == true    
+        .watching-heading
+          | Watching        
+        .watching-card(
+          data-controller='watchingCardController'
+        )
+          .watching-card-menu
+          .margin-container
+            each course in courses
+              if course.lessonProgress.started == true && course.lessonProgress.completedCount != course.lessons.length
+                .watching-card-course-container(
+                  data-courseid=course.id
+                  data-lessonid=course.lessons[0].id
+                )
+                    img#play-image(src="http://localhost:3005/uploads/group-13@2x.png")
+                    img( src=course.image)
+                    .course-title
+                      =course.title
+                    .progress-bar-container
+                      .progress-bar(
+                        data-numberOfCompletedLessons=course.lessonProgress.completedCount
+                        data-numberOfLessons=course.lessons.length
+                      )
+                    .progress-in-numbers
+                      =`${course.lessonProgress.completedCount}/${course.lessons.length}`
+          .dropdown-container
+            .tooltip-container#more-tooltip
+              .tooltip-message-text
+                | More
+            .down-facing-triangle-icon#watching-triangle-icon                      
+      .sidebar-heading
+        | Watched
+      .watched-card(
+        data-controller='watchedCardController'
+        data-completedcourses=completedCourses
+      )     
+        .watched-margin-container
+          - var counter = 0;
+          each completedCourse in completedCourses
+            .watched-card-course(
+              data-completedCourse = completedCourse
+              data-courses = courses              
+            )
+              img(src=completedCourse.image)
+              .course-title
+                | #{completedCourse.courseName}
+              .date-completed
+                | #{completedCourse.date}
+              .tooltip-container#add-to-favourites
+                .tooltip-message-text 
+                  | Add to favourites
+              if favouriteCourses[counter]    
+                if completedCourse.courseId == favouriteCourses[counter].courseId                                                                                  
+                  .star-icon-for-favourites.favourite-course#favouriteCourseIcon(
+                    data-status = favouriteCourses[counter].status
+                    data-courseId = favouriteCourses[counter].courseId
+                  )
+              else
+                .star-icon-for-favourites.favourite-course#favouriteCourseIcon(
+                  data-status = 0
+                  data-courseId = completedCourse.courseId
+                )  
+              - counter++  
+              .tooltip-container#watch-again
+                .tooltip-message-text 
+                  | Watch again                       
+              .placeholder-icon
+              .tooltip-container#mark-as-unwatched
+                .tooltip-message-text 
+                  | Mark as unwatched             
+              .cross-icon
+        .dropdown-container
+          .tooltip-container#more-tooltip
+            .tooltip-message-text
+              | More
+          .down-facing-triangle-icon#watched-triangle-icon         

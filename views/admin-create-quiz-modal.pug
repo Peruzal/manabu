@@ -1,0 +1,82 @@
+#admin-create-quiz-modal.modal.fade(
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+    data-controller='createquiz'
+  )
+    .modal-dialog.modal-dialog-centered(role="document")
+      .modal-content#adminCreateQuizModal
+        span.closeCreateQuizModalIcon(data-dismiss="modal")
+          .close-modal-icon
+        #adminCreateQuizIcon
+          .create-quiz-icon
+        #adminCreateQuizHeading
+          | Add a Quiz
+        #adminCreateQuizMessage
+          | Choose a type of question
+        #adminCreateQuizOptionsWrapper
+          label#trueOrFalseOptionLabel
+            | True / False
+            input#trueOrFalseOption(type="radio" name="radio")
+            span.checkBox
+          label#multipleChoiceOptionLabel
+            | Multiple Choice
+            input#multipleChoiceOption(type="radio" name="radio")
+            span.checkBox
+        #adminCreateQuizButtonsWrapper
+          button#adminQuizNextButton(disabled)
+            | Next
+          #adminCancelCreateQuizButton(data-dismiss="modal")
+            | Cancel
+      .modal-content#createTrueOrFalseModal(data-controller='createTrueOrFalseQuestionController')
+        span.closeCreateQuizModalIcon(data-dismiss="modal")
+          .close-modal-icon
+        #adminCreateQuizIcon
+          .create-quiz-icon
+        #adminCreateQuizHeading
+          | True or False
+        input#createTrueOrFalseStatement(type="text" placeholder= 'Provide a statement...')
+        #adminCreateQuizOptionsWrapper
+          label#trueOptionLabel
+            | True
+            input#trueOption(type="radio" name="radio")
+            span.checkBox
+          label#falseOptionLabel
+            | False
+            input#falseOption(type="radio" name="radio")
+            span.checkBox
+        #createTrueOrFalseButtonsWrapper
+          button#createTrueOrFalseButton(disabled data-action='click->createTrueOrFalseQuestionController#createTrueOrFalseQuiz')
+            | Create
+          #trueOrFalseBackButton
+            | Back
+      .modal-content#createMultipleChoiceModal(data-controller='createMultipleChoiceQuestion')
+        span.closeCreateQuizModalIcon(data-dismiss="modal")
+          .close-modal-icon
+        #adminCreateQuizIcon
+          .create-quiz-icon
+        #multipleChoiceHeading
+          | Multiple Choice
+        input#createMultipleChoiceQuestion(type="text" placeholder= 'Provide a question...')
+        #multipleChoiceOptionsWrapper
+          label#firstOptionLabel
+            input#firstOption(type="radio" name="radio")
+            span.checkBox
+          input#firstOptionStatement(type="text" placeholder= 'Provide the first possible answer...')
+          label#secondOptionLabel
+            input#secondOption(type="radio" name="radio")
+            span.checkBox
+          input#secondOptionStatement(type="text" placeholder= 'Provide the second possible answer...')
+          label#thirdOptionLabel
+            input#thirdOption(type="radio" name="radio")
+            span.checkBox
+          input#thirdOptionStatement(type="text" placeholder= 'Provide the third possible answer...')
+          label#fourthOptionLabel
+            input#fourthOption(type="radio" name="radio")
+            span.checkBox
+          input#fourthOptionStatement(type="text" placeholder= 'Provide the fourth possible answer...')
+        #multipleChoiceButtonsWrapper
+          button#createMultipleChoiceButton(disabled data-action='click->createMultipleChoiceQuestion#createMultipleChoiceQuiz')
+            | Create
+          #multipleChoiceBackButton
+            | Back

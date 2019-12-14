@@ -1,15 +1,5 @@
 class PresentationController extends Stimulus.Controller {
     connect() {
-        const simplemde = new SimpleMDE();
-        updateEditorWithPresentatoinSlideMarkdown();
-        function updateEditorWithPresentatoinSlideMarkdown() {
-            if ($('#presentationEditor')[0]) {
-                
-                const presentationMarkdown = JSON.parse($('#presentationEditor')[0].dataset.presentation).slides;
-                simplemde.value(presentationMarkdown);
-            }
-        }
-
         $('.presentation-container #theme .dropdown-item').click((clickedElement) => {
             $('.presentation-container #theme .select-one-text')[0].textContent = clickedElement.currentTarget.textContent;
         });
@@ -19,9 +9,6 @@ class PresentationController extends Stimulus.Controller {
         });
 
         getPresentationsAuthoredByUser();
-        $('.update-presentation-button').click(() => {
-            editPresentation();
-        });
 
         $('.view-presentation-button').click((clickedElement) => {
             const presentationId = clickedElement.currentTarget.dataset.presentationId;
@@ -53,31 +40,6 @@ class PresentationController extends Stimulus.Controller {
                 .fail(() => {
                     console.error('request to get presentations authored by user was not successful');
                 });
-        }
-
-        function editPresentation() {
-            const presentationId = JSON.parse($('#presentationEditor')[0].dataset.presentation).id;
-            const presentationValue = simplemde.value();
-            $.ajax({
-                url: '/admin/editPresentation',
-                type: 'PUT',
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                data: JSON.stringify({
-                    presentationId: presentationId,
-                    title: $('input.presentation-input-title')[0].value,
-                    theme: $('.dropdown-presentation-theme .select-one-text')[0].textContent,
-                    transition: $('.dropdown-presentation-transition .select-one-text')[0].textContent,
-                    slides: presentationValue,
-                }),
-            })
-                .done(() => {
-                    const presentationId = JSON.parse($('#presentationEditor')[0].dataset.presentation).id;
-                    Turbolinks.visit(`/admin/editPresentation/${presentationId}`);
-                })
-                .fail(() => {
-                    console.log('request to update presentation was not sent successfully');
-                })
         }
 
         function gotoPresentation() {
